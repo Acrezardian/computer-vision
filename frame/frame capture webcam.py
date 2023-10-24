@@ -1,4 +1,5 @@
 import cv2
+import datetime  # Import modul datetime
 
 # Inisialisasi kamera
 cap = cv2.VideoCapture(0)  # Angka 0 mengacu pada kamera utama laptop
@@ -32,11 +33,15 @@ else:
             break
 
         if is_capturing:
-            # Simpan frame sebagai gambar
-            cv2.imwrite("hasil foto.jpg", frame)
-            print("Gambar berhasil disimpan.")
+            # Membuat timestamp
+            timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
+            file_name = f"hasil_foto_{timestamp}.jpg"
+
+            # Simpan frame sebagai gambar dengan timestamp
+            cv2.imwrite(file_name, frame)
+            print(f"Gambar {file_name} berhasil disimpan.")
             is_capturing = False
 
-    # Tutup kamera dan qjendela tampilan
+    # Tutup kamera dan jendela tampilan
     cap.release()
     cv2.destroyAllWindows()
